@@ -1,0 +1,33 @@
+version: '3' #создаем 3 сервера и прописываем каждому порты, образ 
+services:
+  whoami1:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: traefik/whoami
+    ports:
+      - 8080:80
+  whoami2:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: traefik/whoami
+    ports:
+      - 8081:80
+  whoami3:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: traefik/whoami
+    ports:
+      - 8082:80
+  nginx: #задаем nginx прописываем порт, адрес и сервера 
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - whoami1
+      - whoami2
+      - whoami3

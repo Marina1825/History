@@ -1,0 +1,14 @@
+version: '3'
+services:
+  whoami1:
+    image: containous/whoami
+  whoami2:
+    image: containous/whoami
+  whoami3:
+    image: containous/whoami
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 80:80
